@@ -63,7 +63,7 @@
                     <string>Apple</string>
                     <!-- required. the title to display during the download. -->
                     <key>title</key>
-                    <string>测试安装App</string>
+                    <string>小凡凡的测试APP</string>
                 </dict>
             </dict>
         </array>
