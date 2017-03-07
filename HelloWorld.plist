@@ -24,7 +24,7 @@
                         </array>
                         <!-- required. the URL of the file to download. -->
                         <key>url</key>
-                        <string>https://192.168.10.47:8080/HelloWorld.ipa</string>
+                        <string>https://raw.githubusercontent.com/peakandyuri/mytest/master/HelloWorld.ipa</string>
                     </dict>
                     <!-- display-image: the icon to display during download.-->
                     <dict>
@@ -34,19 +34,17 @@
                         <key>needs-shine</key>
                         <true/>
                         <key>url</key>
-                        <string>https://192.168.10.47:8080/57x57.png</string>
+                        <string>https://raw.githubusercontent.com/peakandyuri/mytest/master/57x57.png</string>
                     </dict>
                     <!-- full-size-image: the large 512x512 icon used by iTunes. -->
                     <dict>
                         <key>kind</key>
                         <string>full-size-image</string>
-                        <!-- optional. one md5 hash for the entire file. -->
-                        <key>md5</key>
-                        <string>61fa64bb7a7cae5a46bfb45821ac8bba</string>
+                        <!-- optional. one md5 hash for the entire file. -->                        
                         <key>needs-shine</key>
                         <true/>
                         <key>url</key>
-                        <string>https://192.168.10.47:8080/512x512.jpg</string>
+                        <string>https://raw.githubusercontent.com/peakandyuri/mytest/master/512x512.jpg</string>
                     </dict>
                 </array>
                 <key>metadata</key>
