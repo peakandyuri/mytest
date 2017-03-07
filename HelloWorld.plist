@@ -54,7 +54,7 @@
                     <string>com.xpeak.ios.demo</string>
                     <!-- optional (software only) -->
                     <key>bundle-version</key>
-                    <string>1.0.0</string>
+                    <string>1.0</string>
                     <!-- required. the download kind. -->
                     <key>kind</key>
                     <string>software</string>
