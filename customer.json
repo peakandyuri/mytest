@@ -1,0 +1,20 @@
+[{
+		"company": "天会医药大厦",
+		"linkman": "任天会",
+		"telphone": "13730850100",
+		"address": "成都市 武候区 创业路18号",
+		"status": 0
+	},{
+		"company": "神威医药大厦",
+		"linkman": "向神威",
+		"telphone": "13730850100",
+		"address": "成都市 武候区 创业路38号",
+		"status": 1
+	},{
+		"company": "太湖之光",
+		"linkman": "刘太湖",
+		"telphone": "13730850100",
+		"address": "成都市 武候区 创业路58号",
+		"status": 0,
+		"warning": ["资质即将到期", "被投诉较多"]		
+	}]
