@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>拖拽选址</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        font-size: 13px;
+    }
+    
+    .map {
+        height: 100%;
+        width: 100%;
+    }
+	div.amap-logo{
+		display: none!important;
+	}
+	div.amap-copyright{
+		display: none!important;
+	}
+    </style>
+</head>
+
+<body>
+    <div id="container" class="map" tabindex="0"></div>   
+    <!-- UI组件库 1.0 -->
+    <script type="text/javascript">
+	
+		var key = location.search.replace('?', '');
+		var urls = [
+			{
+				url: '//webapi.amap.com/maps?v=1.3&key={0}&plugin=AMap.PlaceSearch'.replace("{0}", key)
+			},
+			{
+			
+				url:'//webapi.amap.com/ui/1.0/main.js',
+				action: function(){
+					console.log('in action');
+					AMapUI.loadUI(['misc/PositionPicker'], function (PositionPicker) {
+
+						var map = new AMap.Map('container', {
+							resizeEnable: true
+						});
+						var placeSearch= new AMap.PlaceSearch();
+						map.plugin('AMap.Geolocation', function () {
+							var geolocation = new AMap.Geolocation({
+								enableHighAccuracy: true,//是否使用高精度定位，默认:true
+								timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+								buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+								zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+								buttonPosition: 'RB'
+							});
+							map.addControl(geolocation);
+							geolocation.getCurrentPosition();
+							// AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+							// AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+						});
+					
+					
+						var positionPicker = new PositionPicker({
+							mode: 'dragMap',//设定为拖拽地图模式，可选'dragMap'、'dragMarker'，默认为'dragMap'
+							map: map//依赖地图对象
+						});
+						//TODO:事件绑定、结果处理等\
+						
+						AMap.event.addListener(map, 'moveend', function () {
+							//console.log('moved', map.getCenter());
+							var p = map.getCenter();
+							
+							placeSearch.searchNearBy("", [p.lng, p.lat], 10000, function(status, result) {				
+								if (status === 'complete' && result.info === 'OK') {
+									//TODO : 解析返回结果,如果设置了map和panel，api将帮助完成点标注和列表
+									//console.log(result);
+									execEvent(result.poiList.pois);
+								}else{
+									execEvent(null);
+								}
+							});
+						});
+
+						positionPicker.start();
+					});
+				}
+			}
+		];
+		
+		var index = 0;
+	
+		(function(){
+			var script = document.createElement('script');
+			var item = urls[index++];
+			script.type='text/javascript';
+			script.src = item.url;
+			if(index < urls.length){
+				console.log('script loaded');
+				script.onload = arguments.callee;
+			}else if(item.action){
+				script.onload = item.action;
+			}
+			document.body.appendChild(script);
+		
+		}());
+		
+		
+		function execEvent(result){
+			if(parent && parent.postMessage){
+				parent.postMessage(result, "*");
+			}
+		};
+		
+	
+		
+	
+	</script>
+</body>
+
+</html>
