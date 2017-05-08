@@ -42,7 +42,6 @@
 			
 				url:'//webapi.amap.com/ui/1.0/main.js',
 				action: function(){
-					console.log('in action');
 					AMapUI.loadUI(['misc/PositionPicker'], function (PositionPicker) {
 
 						var map = new AMap.Map('container', {
@@ -99,7 +98,6 @@
 			script.type='text/javascript';
 			script.src = item.url;
 			if(index < urls.length){
-				console.log('script loaded');
 				script.onload = arguments.callee;
 			}else if(item.action){
 				script.onload = item.action;
