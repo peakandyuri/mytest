@@ -32,7 +32,7 @@
 		<div id="container" class="map" tabindex="0"></div>       
 	</body>
 
-<!-- UI组件库 1.0 -->
+	<!-- UI组件库 1.0 -->
     <script type="text/javascript">
 	
 		var key = location.search.replace('?', '');
@@ -100,7 +100,9 @@
 			script.type='text/javascript';
 			script.src = item.url;
 			if(index < urls.length){
-				script.onload = arguments.callee;
+				script.onload = function(){
+					setTimeout(arguments.callee, 200);
+				};
 			}else if(item.action){
 				script.onload = item.action;
 			}
