@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>附近药店</title>
+    <style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        font-size: 13px;
+    }
+    
+    .map {
+        height: 100%;
+        width: 100%;
+    }
+	a.amap-logo{
+		display: none!important;
+	}
+	div.amap-copyright{
+		display: none!important;
+	}
+	#panel{
+		position:absolute;
+		z-index:999;
+		top:0px;
+		right:0px;
+	}
+    </style>
+</head>
+
+<body>
+    <div id="container" class="map" tabindex="0"></div>  
+	<div id="panel">           
+		<ul id="my-list"></ul>
+	</div>	
+</body>
+<!-- UI组件库 1.0 -->
+    <script type="text/javascript">
+	
+		var key = location.search.replace('?', '');
+		var urls = [
+			{
+				url: '//webapi.amap.com/maps?v=1.3&key={0}&plugin=AMap.PlaceSearch'.replace("{0}", key)
+			},
+			{
+			
+				url:'//webapi.amap.com/ui/1.0/main.js',
+				action: function(){
+					AMapUI.loadUI(['misc/MarkerList', 'overlay/SimpleMarker', 'overlay/SimpleInfoWindow','misc/PositionPicker'],
+					function (MarkerList, SimpleMarker, SimpleInfoWindow, PositionPicker) {
+
+						var map = new AMap.Map('container', {
+							resizeEnable: true
+						});
+						map.plugin('AMap.Geolocation', function () {
+							var geolocation = new AMap.Geolocation({
+								enableHighAccuracy: true,//是否使用高精度定位，默认:true
+								timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+								buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+								zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+								buttonPosition: 'RB'
+							});
+							map.addControl(geolocation);
+							geolocation.getCurrentPosition();
+							AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+							// AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+						});
+						var pointAdded = false;
+						function onComplete(poi){
+							if(pointAdded) return;
+							pointAdded = true;
+							new AMap.PlaceSearch().searchNearBy("药店", [poi.position.lng, poi.position.lat], 10000, function(status, result) {
+								
+								if (status === 'complete' && result.info === 'OK') {
+									//TODO : 解析返回结果,如果设置了map和panel，api将帮助完成点标注和列表
+									//console.log(result);
+									var data = [];
+									for(var i in result.poiList.pois){
+										i = result.poiList.pois[i];
+										var marker = new AMap.Marker({
+											extData: i
+										});
+										
+										marker.setMap(map);
+
+										marker.setPosition(i.location);
+										
+										marker.on('click', function(ev){
+											map.setCenter(ev.lnglat);
+											debugger;
+										});
+									}
+									
+									execEvent(result.poiList.pois);
+								}else{
+									execEvent(null);
+								}
+							});
+						}
+					});
+				}
+			}
+		];
+		
+		var index = 0;
+	
+		(function(){
+			var script = document.createElement('script');
+			var item = urls[index++];
+			script.type='text/javascript';
+			script.src = item.url;
+			if(index < urls.length){
+				script.onload = arguments.callee;				
+			}else if(item.action){
+				script.onload = item.action;
+			}
+			document.body.appendChild(script);
+		
+		}());
+		
+		
+		function execEvent(result){
+			if(parent && parent.postMessage){
+				parent.postMessage(result, "*");
+			}
+		};
+		
+	
+		
+	
+	</script>
+</html>
