@@ -1,36 +1,38 @@
 <!doctype html>
 <html lang="zh-CN">
 
-<head>
-    <meta charset="utf-8">
-    <title>拖拽选址</title>
-    <style>
-    html,
-    body {
-        height: 100%;
-        margin: 0;
-        width: 100%;
-        padding: 0;
-        overflow: hidden;
-        font-size: 13px;
-    }
-    
-    .map {
-        height: 100%;
-        width: 100%;
-    }
-	a.amap-logo{
-		display: none!important;
-	}
-	div.amap-copyright{
-		display: none!important;
-	}
-    </style>
-</head>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽选址</title>
+		<style>
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			width: 100%;
+			padding: 0;
+			overflow: hidden;
+			font-size: 13px;
+		}
+		
+		.map {
+			height: 100%;
+			width: 100%;
+		}
+		a.amap-logo{
+			display: none!important;
+		}
+		div.amap-copyright{
+			display: none!important;
+		}
+		</style>
+	</head>
 
-<body>
-    <div id="container" class="map" tabindex="0"></div>   
-    <!-- UI组件库 1.0 -->
+	<body>
+		<div id="container" class="map" tabindex="0"></div>       
+	</body>
+
+<!-- UI组件库 1.0 -->
     <script type="text/javascript">
 	
 		var key = location.search.replace('?', '');
@@ -117,6 +119,5 @@
 		
 	
 	</script>
-</body>
 
 </html>
