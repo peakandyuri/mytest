@@ -114,8 +114,9 @@
 			script.type='text/javascript';
 			script.src = item.url;
 			if(index < urls.length){
+				var caller = arguments.callee;
 				script.onload = function(){
-					setTimeout(arguments.callee, 200);
+					setTimeout(caller, 200);
 				};
 			}else if(item.action){
 				script.onload = item.action;
