@@ -35,8 +35,7 @@
 			var map;
 			var _markers = [];
 			function hashChanged(){
-				var hash = location.hash.substr(1);
-				console.log('hash', hash);
+				var hash = location.hash.substr(1);			
 				map.clearMap();
 				for(var i = _markers.length - 1; i >= 0; i--){					
 					//map.remove(_markers[i]);
@@ -63,7 +62,6 @@
 				for(var i = 0; i < markers.length; i++){
 					var marker = new AMap.Marker({
 						id: i,
-						title: i+1,
 						extData: markers[i].id
 					});
 					
@@ -132,7 +130,7 @@
 					setTimeout(caller, 200);
 				};
 			}else if(item.action){
-				script.onload = item.action;
+				script.onload = setTimeout(item.action, 200);
 			}
 			document.body.appendChild(script);
 		
