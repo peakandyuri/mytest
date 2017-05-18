@@ -121,7 +121,10 @@
 		
 		function execEvent(result){
 			if(parent && parent.postMessage){
-				parent.postMessage(result, "*");
+				parent.postMessage({
+					token: 'location',
+					result: result
+				}, "*");
 			}
 		};
 	</script>

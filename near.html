@@ -151,7 +151,10 @@
 		
 		function execEvent(result){
 			if(parent && parent.postMessage){
-				parent.postMessage(result, "*");
+				parent.postMessage({
+					token: 'near',
+					result: result
+				}, "*");
 			}
 		};
 	</script>
