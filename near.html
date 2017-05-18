@@ -50,7 +50,7 @@
 					
 					markers[i] = {
 						id: mark[0],
-						location: {lng: pos[0], lat: pos[1], I: pos[0], M: pos[1]}
+						location: [pos[0],  pos[1]]
 					}				
 				}
 				if(markers.length > 0)
@@ -62,12 +62,11 @@
 				for(var i = 0; i < markers.length; i++){
 					var marker = new AMap.Marker({
 						id: i,
-						extData: markers[i].id
+						extData: markers[i].id,
+						position: markers[i].location
 					});
 					
 					marker.setMap(map);
-
-					marker.setPosition(markers[i].location);
 					
 					marker.on('click', function(ev){
 						map.setCenter(ev.lnglat);						
