@@ -105,7 +105,14 @@
 					setTimeout(caller, 200);
 				};
 			}else if(item.action){
-				script.onload = item.action;
+				script.onload = function(){
+					try{
+						item.action();
+					}catch(e){
+						setTimeout(arguments.callee, 500);
+						console.log(e);
+					}
+				};
 			}
 			document.body.appendChild(script);
 		
@@ -117,10 +124,6 @@
 				parent.postMessage(result, "*");
 			}
 		};
-		
-	
-		
-	
 	</script>
 
 </html>
