@@ -105,11 +105,14 @@
 					setTimeout(caller, 200);
 				};
 			}else if(item.action){
+				var count = 0;
 				script.onload = function(){
 					try{
 						item.action();
 					}catch(e){
-						setTimeout(arguments.callee, 500);
+						if(++count < 10){
+							setTimeout(arguments.callee, 500);
+						}
 						console.log(e);
 					}
 				};
