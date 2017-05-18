@@ -104,7 +104,7 @@
 						map.addControl(geolocation);
 						geolocation.getCurrentPosition();
 						AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-						// AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+						AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
 					});
 					var pointAdded = false;
 					function onComplete(poi){
@@ -112,6 +112,10 @@
 						pointAdded = true;
 						
 						execEvent("DRAW");
+					}
+
+					function onError(arg){
+						console.log(arg);
 					}
 				}
 			}
@@ -130,7 +134,14 @@
 					setTimeout(caller, 200);
 				};
 			}else if(item.action){
-				script.onload = setTimeout(item.action, 200);
+				script.onload = function(){
+					try{
+						item.action();
+					}catch(e){
+						setTimeout(arguments.callee, 500);
+						console.log(e);
+					}
+				};
 			}
 			document.body.appendChild(script);
 		
