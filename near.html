@@ -131,7 +131,7 @@
 			if(index < urls.length){
 				var caller = arguments.callee;
 				script.onload = function(){
-					setTimeout(caller, 200);
+					setTimeout(caller, 500);
 				};
 			}else if(item.action){
 				var count = 0;
