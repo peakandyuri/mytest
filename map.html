@@ -72,7 +72,9 @@
 					});
 					//TODO:事件绑定、结果处理等\
 
-					var placeSearch = new AMap.PlaceSearch();
+					var placeSearch = new AMap.PlaceSearch({
+						extensions: 'all'
+					});
 					placeSearch.setType(['小区', '学校', '楼宇']);
 
 					AMap.event.addListener(map, 'moveend', function () {
