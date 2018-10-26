@@ -1,3 +1,1 @@
-var i = [0,12]
-
-function a(){}
+alert('loaded 2');
