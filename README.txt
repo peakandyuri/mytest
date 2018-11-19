@@ -1,1 +1,1 @@
-hello,this is test.
+This is example repository
